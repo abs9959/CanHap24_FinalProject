@@ -96,6 +96,14 @@ PFont f;
 //Image objects
 PImage flower;
 PImage painting2;
+PImage painting3;
+
+/*Curve Setting*/
+PShape bezierCurve;
+PShape bezierCurve2;
+
+float[][] vertices = new float[12][8];
+float[][] vertices2 = new float[6][8];
 
 /* end elements definition *********************************************************************************************/  
 
@@ -110,7 +118,7 @@ void setup(){
 
   f = createFont("Arial", 16, true);
   //haplyBoard          = new Board(this, "/dev/cu.usbmodem2101", 0);
-  haplyBoard          = new Board(this, Serial.list()[0], 0);
+  haplyBoard          = new Board(this, Serial.list()[1], 0);
 
   widgetOne           = new Device(widgetOneID, haplyBoard);
   pantograph          = new Pantograph();
@@ -131,7 +139,55 @@ void setup(){
   
   flower = loadImage("images/flower.jpg");
   painting2 = loadImage("images/painting2.png");
+  painting3 = loadImage("images/artworkcolor.png");
+    
+  // Create a PShape object for the bezier curve
+  bezierCurve = createShape();
+  bezierCurve.beginShape();
+  
+  float[][] vertices = {{mapX(-0.012), mapX(-0.002), mapX(0.0095), mapX(-0.005), mapY(0.031), mapY(0.013), mapY(0.026), mapY(0.0315)},
+                        {mapX(-0.005), mapX(-0.009), mapX(-0.009), mapX(-0.005), mapY(0.0315), mapY(0.031), mapY(0.033), mapY(0.034)},
+                        {mapX(-0.004), mapX(0.0043), mapX(-0.003), mapX(-0.007), mapY(0.034), mapY(0.038), mapY(0.05), mapY(0.04)},
+                        {mapX(-0.008), mapX(-0.009), mapX(-0.013), mapX(-0.0108), mapY(0.038), mapY(0.037), mapY(0.037), mapY(0.04)},
+                        {mapX(-0.0108), mapX(-0.0053), mapX(-0.019), mapX(-0.0145), mapY(0.04), mapY(0.057), mapY(0.055), mapY(0.043)},
+                        {mapX(-0.0145), mapX(-0.0146), mapX(-0.014), mapX(-0.017), mapY(0.042),mapY(0.047), mapY(0.038), mapY(0.042)},
+                        {mapX(-0.0169), mapX(-0.0175), mapX(-0.0345), mapX(-0.023), mapY(0.042), mapY(0.055),  mapY(0.051),  mapY(0.042)},
+                        {mapX(-0.023), mapX(-0.018), mapX(-0.0255), mapX(-0.025), mapY(0.042), mapY(0.033),  mapY(0.0385),  mapY(0.039)},
+                        {mapX(-0.025), mapX(-0.031), mapX(-0.036), mapX(-0.028), mapY(0.039), mapY(0.049),  mapY(0.039),  mapY(0.036)},
+                        {mapX(-0.028), mapX(-0.023), mapX(-0.025), mapX(-0.028), mapY(0.036), mapY(0.035),  mapY(0.031),  mapY(0.033)},
+                        {mapX(-0.028), mapX(-0.039), mapX(-0.034), mapX(-0.028), mapY(0.033), mapY(0.033),  mapY(0.024),  mapY(0.028)},
+                        {mapX(-0.028), mapX(-0.026), mapX(-0.025), mapX(-0.03), mapY(0.028), mapY(0.028),  mapY(0.025),  mapY(0.023)}};
 
+ 
+  // Approximate the bezier curve by adding vertices
+  
+  for (int i = 0; i<12; i++){
+    for (float t = 0; t <= 1; t += 0.01) {
+    float x = bezierPoint(vertices[i][0], vertices[i][1], vertices[i][2], vertices[i][3], t);
+    float y = bezierPoint(vertices[i][4], vertices[i][5], vertices[i][6], vertices[i][7], t);
+    bezierCurve.vertex(x, y);
+    }
+  }
+  bezierCurve.endShape();
+  
+  bezierCurve2 = createShape();
+  bezierCurve2.beginShape();
+  
+  float[][] vertices2 = {{mapX(0.02), mapX(0.015), mapX(0.007), mapX(0.014), mapY(0.062), mapY(0.047), mapY(0.062), mapY(0.066)},
+                        {mapX(0.014), mapX(0.022), mapX(0.016), mapX(0.011), mapY(0.066), mapY(0.068), mapY(0.075), mapY(0.069)},
+                        {mapX(0.011), mapX(0.0082), mapX(0.001), mapX(0.011), mapY(0.069), mapY(0.0648), mapY(0.072), mapY(0.075)},
+                        {mapX(0.011), mapX(0.024), mapX(0.018), mapX(0.013), mapY(0.075), mapY(0.075), mapY(0.08), mapY(0.08)},
+                        {mapX(0.013), mapX(0.009), mapX(0.002), mapX(0.013), mapY(0.08), mapY(0.08), mapY(0.086), mapY(0.0856)},
+                        {mapX(0.013), mapX(0.023), mapX(0.02), mapX(0.015), mapY(0.0856), mapY(0.076), mapY(0.087), mapY(0.091)}}; 
+  
+   for (int i = 0; i<6; i++){
+    for (float t = 0; t <= 1; t += 0.01) {
+    float x = bezierPoint(vertices2[i][0], vertices2[i][1], vertices2[i][2], vertices2[i][3], t);
+    float y = bezierPoint(vertices2[i][4], vertices2[i][5], vertices2[i][6], vertices2[i][7], t);
+    bezierCurve2.vertex(x, y);
+    }
+  }
+  bezierCurve2.endShape();
 }
 /* end setup section ***************************************************************************************************/
   
@@ -154,7 +210,7 @@ void draw(){
       text("ABSTRACT BLUE N.01", 800, 175);
     } else if(ffNum == FFNUM.FOUR) {
       fill(0);
-      text("Fourth mode", 500, 300);
+      text(" ", 500, 300);
     }
     
     if (ffNum == FFNUM.TWO) {
@@ -187,6 +243,26 @@ void draw(){
       ellipse(mapX(posEE.x), mapY(posEE.y), 10, 10);
       //stroke(0); 
       strokeWeight(2);    
+    }
+    
+    if (ffNum == FFNUM.FOUR){
+     float scaleFactor = 0.2;
+     
+     float scaledWidth = painting3.width * scaleFactor;
+     float scaledHeight = painting3.height * scaleFactor;
+     
+     image(painting3, width / 2 - 265, map(0.02, 0, 0.1, 0, 700), scaledWidth, scaledHeight);
+
+     shape(bezierCurve);
+     bezierCurve.setVisible(false);
+     
+     shape(bezierCurve2);
+     bezierCurve2.setVisible(false);
+   
+     fill(#000000);
+     text("Current mode: Seventh mode", 10,30);
+     ellipse(mapX(posEE.x), mapY(posEE.y), 10, 10);
+    
     }
   }
 }
@@ -662,6 +738,55 @@ class SimulationThread implements Runnable{
 //PAINTING 3*******************************************************************************************************   
 /* GHAZALEH */
       else if(ffNum == FFNUM.FOUR)  {
+        int total = bezierCurve.getVertexCount();
+         int total2 = bezierCurve2.getVertexCount();
+
+         double minDistance = 999999;
+         float forceX = 0;
+         float forceY = 0;
+         int mag = -2;
+         
+         if (posEE.x >= -0.0346 && posEE.x <= 0.0026 && posEE.y <= 0.0517){
+           for (int j = 0; j < total; j++) {
+            PVector v = bezierCurve.getVertex(j);
+            
+            float ED = calculateDistance(mapX(posEE.x), mapY(posEE.y), v.x, v.y);
+
+            if (ED < 200){
+                if (ED <= minDistance){
+                  minDistance = ED;
+                  forceX = (v.x - mapX(posEE.x))/((float)Math.pow(ED, 2));
+                  forceY = (v.y - mapY(posEE.y))/((float)Math.pow(ED, 2));
+                }
+              }
+           }
+         } 
+         else if (posEE.x >= 0.005 && posEE.y >= 0.0576){
+           for (int j = 0; j < total2; j++){
+             PVector v1 = bezierCurve2.getVertex(j);
+             float ED = calculateDistance(mapX(posEE.x), mapY(posEE.y), v1.x, v1.y);
+            if (ED < 200){
+                if (ED <= minDistance){
+                  minDistance = ED;
+                  forceX = (v1.x - mapX(posEE.x))/((float)Math.pow(ED, 2));
+                  forceY = (v1.y - mapY(posEE.y))/((float)Math.pow(ED, 2));
+                }
+              }
+           }
+         }
+         else{
+              float scale = 1;
+              float perlin_noise = noise(mapX(posEE.x), mapY(posEE.y));
+              float magnitude = perlin_noise * scale;
+              float direction = perlin_noise * TWO_PI + random(-PI/4, PI/4);
+              forceX = magnitude * cos(direction);
+              forceY = magnitude * sin(direction);
+              PVector forceVector = new PVector(forceX, forceY);
+              //println(forceVector);
+              fEE.set(forceVector);
+            }         
+         fEE.set(forceX * mag, forceY * mag);
+         lastPosEE = posEE.copy();
       }
           
  //END OF EXPERIENCES**********************************************************************************************************************     
@@ -689,6 +814,13 @@ PVector device_to_graphics(PVector deviceFrame){
 
 PVector graphics_to_device(PVector graphicsFrame){
   return graphicsFrame.set(-graphicsFrame.x, graphicsFrame.y);
+}
+
+float calculateDistance(float x1, float y1, float x2, float y2){
+
+  float distance = (float)Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+  
+  return distance;
 }
 
 void keyPressed() {
