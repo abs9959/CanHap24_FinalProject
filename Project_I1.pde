@@ -89,6 +89,7 @@ enum FFNUM {
   THREE,
   FOUR,
 };
+
 FFNUM ffNum = FFNUM.ONE;
 PFont f;
 
@@ -108,8 +109,8 @@ void setup(){
   /* set font type and size */
 
   f = createFont("Arial", 16, true);
-  //haplyBoard          = new Board(this, "/dev/cu.usbmodem2101", 0);
-  haplyBoard          = new Board(this, Serial.list()[0], 0);
+  haplyBoard          = new Board(this, "/dev/cu.usbmodem2101", 0);
+  //haplyBoard          = new Board(this, Serial.list()[0], 0);
 
   widgetOne           = new Device(widgetOneID, haplyBoard);
   pantograph          = new Pantograph();
@@ -143,7 +144,7 @@ void draw(){
       text("First mode", 500, 300);
       text("*Haptic Experience Window*", 100, 75);
       fill(#000000);
-      text("Instructions:\nEach of the 3 experiences below represents a texture. \nThe textures are as follows:\n1. Instructions \n2. The Flower \n3. second painting name \n4. third painting name \nMake sure the mouse is focussed on the Haptic Experience Window. \nPress '1' for the first experience. \nPress '2' for the second experience and so on... ", 100, 100);
+      text("Instructions:\nEach of the 3 experiences below represents a texture. \nThe textures are as follows:\n1. Instructions \n2. The Flower \n3. Abstract Blue N.01 \n4. third painting name \nMake sure the mouse is focussed on the Haptic Experience Window. \nPress '1' for the first experience. \nPress '2' for the second experience and so on... ", 100, 100);
       fill(#000000);
       text("Current mode:", 300, 300);
       fill(#000000);
@@ -172,7 +173,6 @@ void draw(){
     }
     
     if (ffNum == FFNUM.THREE) {
-       //background(255); // Clear the screen
   
       // Calculate the scaled dimensions
       float scaleFactor = min(width / (float)painting2.width, height / (float)painting2.height);
@@ -215,235 +215,229 @@ class SimulationThread implements Runnable{
       actingForce.set(0, 0);
 
 //PAINTING 1*********************************************************************************************************************
-/* ABBY FLOWER/
-if (ffNum == FFNUM.TWO) {
-    if(posEE.y > 0.0283 && posEE.y <= 0.0301){
-        if(posEE.x > -0.0185 && posEE.x <= -0.004){
-          if(posEE.y > 0.0282 && posEE.y <= 0.0295) {
-          fEE.set(0,-3);
-          }
-        }
-      }
-      //top of right    
-      else if(posEE.y > 0.0363 && posEE.y <= 0.0383){
-        if(posEE.x > -0.0102 && posEE.x <= 0.002){
-          if(posEE.y > 0.0363 && posEE.y <= 0.0372) {
-          fEE.set(0,-3);
-          }
-        }
-        
-        if(posEE.x > -0.0186 && posEE.x <= -0.0172){
-          if(posEE.y > 0.0293 && posEE.y <= 0.0429){
-            if(posEE.x > -0.0186 && posEE.x <= -0.0177) {
-            fEE.set(-3,0);
+/* ABBY FLOWER */
+      if (ffNum == FFNUM.TWO) {
+        if(posEE.y > 0.0283 && posEE.y <= 0.0301){
+          if(posEE.x > -0.0185 && posEE.x <= -0.004){
+            if(posEE.y > 0.0282 && posEE.y <= 0.0295) {
+              fEE.set(0,-3);
+              }
             }
           }
-        }   
-      }
+        //top of right    
+        else if(posEE.y > 0.0363 && posEE.y <= 0.0383){
+          if(posEE.x > -0.0102 && posEE.x <= 0.002){
+            if(posEE.y > 0.0363 && posEE.y <= 0.0372) {
+              fEE.set(0,-3);
+            }
+          }
+        
+          if(posEE.x > -0.0186 && posEE.x <= -0.0172){
+            if(posEE.y > 0.0293 && posEE.y <= 0.0429){
+              if(posEE.x > -0.0186 && posEE.x <= -0.0177) {
+                fEE.set(-3,0);
+              }
+            }
+          }   
+        }
       
-      else if(posEE.y > 0.0499 && posEE.y <= 0.0520){
-        if(posEE.x > -0.0047 && posEE.x <= 0.0031){
-          if(posEE.y > 0.0499 && posEE.y <= 0.0507) {
-          fEE.set(0,3);
+        else if(posEE.y > 0.0499 && posEE.y <= 0.0520){
+          if(posEE.x > -0.0047 && posEE.x <= 0.0031){
+            if(posEE.y > 0.0499 && posEE.y <= 0.0507) {
+              fEE.set(0,3);
+            }
           }
         }
-      }
       
-      else if(posEE.y > 0.0635 && posEE.y <= 0.0652){
-        if(posEE.x > -0.0177 && posEE.x <= -0.0041){
-          if(posEE.y > 0.0635 && posEE.y <= 0.0642) {
-          fEE.set(0,3);
-          }
-        }
-      }
-      
-      else if(posEE.y > 0.0590 && posEE.y <= 0.0605){
-        if(posEE.x > -0.0261 && posEE.x <= -0.0133){
-          if(posEE.y > 0.0590 && posEE.y <= 0.0595) {
-          fEE.set(0,3);
-          }
-        }
-      }
-      //top of bottom left     
-      else if(posEE.y > 0.0440 && posEE.y <= 0.0461){
-        if(posEE.x > -0.0257 && posEE.x <= -0.0130){
-          if(posEE.y > 0.0440 && posEE.y <= 0.0453) {
-          fEE.set(0,-3);
+        else if(posEE.y > 0.0635 && posEE.y <= 0.0652){
+          if(posEE.x > -0.0177 && posEE.x <= -0.0041){
+            if(posEE.y > 0.0635 && posEE.y <= 0.0642) {
+              fEE.set(0,3);
+            }
           }
         }
         
-        if(posEE.x > -0.0293 && posEE.x <= -0.0277){
-        if(posEE.y > 0.0329 && posEE.y <= 0.0474){
-          if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
-          fEE.set(-3,0);
+        else if(posEE.y > 0.0590 && posEE.y <= 0.0605){
+          if(posEE.x > -0.0261 && posEE.x <= -0.0133){
+            if(posEE.y > 0.0590 && posEE.y <= 0.0595) {
+              fEE.set(0,3);
+            }
           }
         }
-      }
+        
+        //top of bottom left     
+        else if(posEE.y > 0.0440 && posEE.y <= 0.0461){
+          if(posEE.x > -0.0257 && posEE.x <= -0.0130){
+            if(posEE.y > 0.0440 && posEE.y <= 0.0453) {
+              fEE.set(0,-3);
+            }
+          }
+        
+          if(posEE.x > -0.0293 && posEE.x <= -0.0277){
+            if(posEE.y > 0.0329 && posEE.y <= 0.0474){
+              if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
+                fEE.set(-3,0);
+              }
+            }
+          }
       
-      if(posEE.x > 0.0019 && posEE.x <= 0.0033){
-        if(posEE.y > 0.0370 && posEE.y <= 0.0503){
-          if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
-          fEE.set(3,0);
+          if(posEE.x > 0.0019 && posEE.x <= 0.0033){
+            if(posEE.y > 0.0370 && posEE.y <= 0.0503){
+              if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
+                fEE.set(3,0);
+              }
+            }
           }
-        }
-      }
       
-      if(posEE.x > -0.0102 && posEE.x <= -0.0086){
-        if(posEE.y > 0.0374 && posEE.y <= 0.0499){
-          if(posEE.x > -0.0102 && posEE.x <= -0.0094) {
-          fEE.set(-3,0);
-          }
-        }
-      }
-   
-      }
-   //top of top left   
-       else if(posEE.y > 0.0320 && posEE.y <= 0.0337){
-        if(posEE.x > -0.0284 && posEE.x <= -0.0179){
-          if(posEE.y > 0.0320 && posEE.y <= 0.0329) {
-          fEE.set(0,-3);
+          if(posEE.x > -0.0102 && posEE.x <= -0.0086){
+            if(posEE.y > 0.0374 && posEE.y <= 0.0499){
+              if(posEE.x > -0.0102 && posEE.x <= -0.0094) {
+                fEE.set(-3,0);
+              }
+            }
           }
         }
         
-        if(posEE.x > -0.0053 && posEE.x <= -0.0038){
-        println("1");
-        if(posEE.y > 0.0280 && posEE.y <= 0.0372){
-          println("2");
-          if(posEE.x > -0.0055 && posEE.x <= -0.0046) {
-            println("3");
-          fEE.set(3,0);
+        //top of top left   
+        else if(posEE.y > 0.0320 && posEE.y <= 0.0337){
+          if(posEE.x > -0.0284 && posEE.x <= -0.0179){
+            if(posEE.y > 0.0320 && posEE.y <= 0.0329) {
+              fEE.set(0,-3);
+            }
           }
-        }
-      }
         
-        
-      }
-   //bottom of top   
-      else if(posEE.y > 0.0419 && posEE.y <= 0.0436){
-        if(posEE.x > -0.0174 && posEE.x <= -0.0095){
-          if(posEE.y > 0.0419 && posEE.y <= 0.0427) {
-          fEE.set(0,3);
-          }
+          if(posEE.x > -0.0053 && posEE.x <= -0.0038){
+            if(posEE.y > 0.0280 && posEE.y <= 0.0372){
+              if(posEE.x > -0.0055 && posEE.x <= -0.0046) {
+                fEE.set(3,0);
+              }
+            }
+          } 
         }
         
-        if(posEE.x > -0.0293 && posEE.x <= -0.0277){
-        if(posEE.y > 0.0329 && posEE.y <= 0.0474){
-          if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
-          fEE.set(-3,0);
+       //bottom of top   
+        else if(posEE.y > 0.0419 && posEE.y <= 0.0436){
+          if(posEE.x > -0.0174 && posEE.x <= -0.0095){
+            if(posEE.y > 0.0419 && posEE.y <= 0.0427) {
+              fEE.set(0,3);
+            }
           }
-        }
-      }
+        
+          if(posEE.x > -0.0293 && posEE.x <= -0.0277){
+            if(posEE.y > 0.0329 && posEE.y <= 0.0474){
+              if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
+                fEE.set(-3,0);
+              }
+            }
+          }
       
-      if(posEE.x > 0.0019 && posEE.x <= 0.0033){
-        if(posEE.y > 0.0370 && posEE.y <= 0.0503){
-          if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
-          fEE.set(3,0);
+          if(posEE.x > 0.0019 && posEE.x <= 0.0033){
+            if(posEE.y > 0.0370 && posEE.y <= 0.0503){
+              if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
+                fEE.set(3,0);
+              }
+            }
           }
         }
-      }
-        
-      }
       
-      else if(posEE.y > 0.0489 && posEE.y <= 0.0506){
-        if(posEE.x > -0.0132 && posEE.x <= -0.0050){
-          if(posEE.y > 0.0489 && posEE.y <= 0.0497) {
-          fEE.set(0,-3);
+        else if(posEE.y > 0.0489 && posEE.y <= 0.0506){
+          if(posEE.x > -0.0132 && posEE.x <= -0.0050){
+            if(posEE.y > 0.0489 && posEE.y <= 0.0497) {
+              fEE.set(0,-3);
+            }
+          }
+        
+          if(posEE.x > -0.0262 && posEE.x <= -0.0249){
+            if(posEE.y > 0.0462 && posEE.y <= 0.0599){
+              if(posEE.x > -0.0262 && posEE.x <= 0.0258) {
+                fEE.set(-3,0);
+              }
+            }
           }
         }
         
-        if(posEE.x > -0.0262 && posEE.x <= -0.0249){
-        if(posEE.y > 0.0462 && posEE.y <= 0.0599){
-          if(posEE.x > -0.0262 && posEE.x <= 0.0258) {
-          fEE.set(-3,0);
+        //right of top      
+        else if(posEE.x > -0.0053 && posEE.x <= -0.0038){
+          if(posEE.y > 0.0280 && posEE.y <= 0.0372){
+            if(posEE.x > -0.0055 && posEE.x <= -0.0046) {
+              fEE.set(3,0);
+            }
+          }
+          if(posEE.y > 0.0488 && posEE.y <= 0.0646){
+            if(posEE.x > -0.0053 && posEE.x <= -0.0045) {
+              fEE.set(3,0);
+            }
           }
         }
-      }
-      }
-//right of top      
-      else if(posEE.x > -0.0053 && posEE.x <= -0.0038){
-        println("1");
-        if(posEE.y > 0.0280 && posEE.y <= 0.0372){
-          println("2");
-          if(posEE.x > -0.0055 && posEE.x <= -0.0046) {
-            println("3");
-          fEE.set(3,0);
+        
+        //right of right   
+        else if(posEE.x > 0.0019 && posEE.x <= 0.0033){
+          if(posEE.y > 0.0370 && posEE.y <= 0.0503){
+            if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
+              fEE.set(3,0);
+            }
           }
         }
-        if(posEE.y > 0.0488 && posEE.y <= 0.0646){
-          if(posEE.x > -0.0053 && posEE.x <= -0.0045) {
-          fEE.set(3,0);
+        
+        //right of bottom left     
+        else if(posEE.x > -0.0138 && posEE.x <= -0.0124){
+          if(posEE.y > 0.0446 && posEE.y <= 0.0599){
+            if(posEE.x > -0.01389 && posEE.x <= 0.0026) {
+              fEE.set(3,0);
+            }
           }
         }
-      }
-   //right of right   
-      else if(posEE.x > 0.0019 && posEE.x <= 0.0033){
-        if(posEE.y > 0.0370 && posEE.y <= 0.0503){
-          if(posEE.x > 0.0019 && posEE.x <= 0.0026) {
-          fEE.set(3,0);
+        
+        //left of bottom left     
+        else if(posEE.x > -0.0262 && posEE.x <= -0.0249){
+          if(posEE.y > 0.0462 && posEE.y <= 0.0599){
+            if(posEE.x > -0.0262 && posEE.x <= 0.0258) {
+              fEE.set(-3,0);
+            }
           }
         }
-      }
- //right of bottom left     
-      else if(posEE.x > -0.0138 && posEE.x <= -0.0124){
-        println("I AM HERE");
-        if(posEE.y > 0.0446 && posEE.y <= 0.0599){
-          if(posEE.x > -0.01389 && posEE.x <= 0.0026) {
-          fEE.set(3,0);
-          }
-          
-        }
-      }
- //left of bottom left     
-      else if(posEE.x > -0.0262 && posEE.x <= -0.0249){
-        if(posEE.y > 0.0462 && posEE.y <= 0.0599){
-          if(posEE.x > -0.0262 && posEE.x <= 0.0258) {
-          fEE.set(-3,0);
+        
+        //left of left     
+        else if(posEE.x > -0.0293 && posEE.x <= -0.0277){
+          if(posEE.y > 0.0329 && posEE.y <= 0.0474){
+            if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
+              fEE.set(-3,0);
+            }
           }
         }
-      }
- //left of left     
-      else if(posEE.x > -0.0293 && posEE.x <= -0.0277){
-        if(posEE.y > 0.0329 && posEE.y <= 0.0474){
-          if(posEE.x > -0.0293 && posEE.x <= -0.0285) {
-          fEE.set(-3,0);
+        
+        // left of top    
+        else if(posEE.x > -0.0186 && posEE.x <= -0.0172){
+          if(posEE.y > 0.0293 && posEE.y <= 0.0429){
+            if(posEE.x > -0.0186 && posEE.x <= -0.0177) {
+              fEE.set(-3,0);
+            }
           }
         }
-      }
- // left of top    
-      else if(posEE.x > -0.0186 && posEE.x <= -0.0172){
-        if(posEE.y > 0.0293 && posEE.y <= 0.0429){
-          if(posEE.x > -0.0186 && posEE.x <= -0.0177) {
-          fEE.set(-3,0);
-          }
-        }
-      }
       
- // left of right    
-      else if(posEE.x > -0.0102 && posEE.x <= -0.0086){
-        if(posEE.y > 0.0374 && posEE.y <= 0.0499){
-          if(posEE.x > -0.0102 && posEE.x <= -0.0094) {
-          fEE.set(-3,0);
+        // left of right    
+        else if(posEE.x > -0.0102 && posEE.x <= -0.0086){
+          if(posEE.y > 0.0374 && posEE.y <= 0.0499){
+            if(posEE.x > -0.0102 && posEE.x <= -0.0094) {
+              fEE.set(-3,0);
+            }
           }
         }
-      }
 
-      
-      
-      else if(posEE.y > 0.0780 && posEE.y < 0.0975){
-        if(posEE.x > -0.0438 && posEE.x < 0.0172){
-          
-          
-          float scale = 10;
-          float perlin_noise = noise(posEE.x, posEE.y);
-          float magnitude = 5 + perlin_noise * scale + random(-2, 2);
-          float direction = perlin_noise * TWO_PI + random(-PI/4, PI/4);
-          
-          // Create a force vector based on magnitude and direction obtained from the Perlin noise
-          float forceX = magnitude * cos(direction);
-          float forceY = magnitude * sin(direction);
-          PVector forceVector = new PVector(forceX, forceY);
-          println(forceVector);
-          fEE.set(forceVector);
+        else if(posEE.y > 0.0780 && posEE.y < 0.0975){
+          if(posEE.x > -0.0438 && posEE.x < 0.0172){
+            float scale = 10;
+            float perlin_noise = noise(posEE.x, posEE.y);
+            float magnitude = 5 + perlin_noise * scale + random(-2, 2);
+            float direction = perlin_noise * TWO_PI + random(-PI/4, PI/4);
+            
+            // Create a force vector based on magnitude and direction obtained from the Perlin noise
+            float forceX = magnitude * cos(direction);
+            float forceY = magnitude * sin(direction);
+            PVector forceVector = new PVector(forceX, forceY);
+            fEE.set(forceVector);
+          }
+        }
         
         else {
           fEE.set(0, 0);
@@ -453,7 +447,7 @@ if (ffNum == FFNUM.TWO) {
       }
       
 //PAINTING 2*********************************************************************************************************************     
-/* CHARLOTTE ABSTRACT/      
+/* CHARLOTTE ABSTRACT */    
       else if (ffNum == FFNUM.THREE)
       {
         //[rectLeft, rectRight, rectTop, rectBottom]
@@ -666,8 +660,9 @@ if (ffNum == FFNUM.TWO) {
         }
 
 //PAINTING 3*******************************************************************************************************   
-/* GHAZALEH/
-else if(ffNum == FFNUM.FOUR)  {
+/* GHAZALEH */
+      else if(ffNum == FFNUM.FOUR)  {
+      }
           
  //END OF EXPERIENCES**********************************************************************************************************************     
         
@@ -732,31 +727,31 @@ double triangleWave(double x, double wavelength, double angle) {
     return wave;
 }
 
-  float calculatePolynomial(float x) {
-    //return (float)Math.sqrt(0.0005 - (float)Math.pow(x, 2)) + 0.03;
-    return x+0.05;
-  }
-  
-    float calculatePolynomial2(float x) {
-    //return (float)Math.sqrt(0.0005 - (float)Math.pow(x, 2)) + 0.03;
-    return x+0.06;
-  }
+float calculatePolynomial(float x) {
+  //return (float)Math.sqrt(0.0005 - (float)Math.pow(x, 2)) + 0.03;
+  return x+0.05;
+}
 
-  // Calculate the derivative of the polynomial function at a given x
-  float calculatePolynomialDerivative(float x) {
-    return -(x/(1+0.03)); // Derivative of a quadratic polynomial
-  }
+float calculatePolynomial2(float x) {
+//return (float)Math.sqrt(0.0005 - (float)Math.pow(x, 2)) + 0.03;
+return x+0.06;
+}
+
+// Calculate the derivative of the polynomial function at a given x
+float calculatePolynomialDerivative(float x) {
+  return -(x/(1+0.03)); // Derivative of a quadratic polynomial
+}
   
-  float mapX(float x) {
-    // Scale the x-coordinate from the range (-0.07 to 0.055) to (0 to 1000)
-    // Formula: newX = (x - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin
-    return (x + 0.07) * (1000.0 / (0.066 + 0.07));
+float mapX(float x) {
+// Scale the x-coordinate from the range (-0.07 to 0.055) to (0 to 1000)
+// Formula: newX = (x - oldMin) * (newMax - newMin) / (oldMax - oldMin) + newMin
+  return (x + 0.07) * (1000.0 / (0.066 + 0.07));
 }
 
 float mapY(float y) {
-    // Scale the y-coordinate from the range (0 to 0.1) to (0 to 650)
-    // Formula: newY = y * (newMax / oldMax)
-    return y * (650.0 / 0.1);
+  // Scale the y-coordinate from the range (0 to 0.1) to (0 to 650)
+  // Formula: newY = y * (newMax / oldMax)
+  return y * (650.0 / 0.1);
 }
 
 /* end helper functions section ****************************************************************************************/
