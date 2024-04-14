@@ -109,8 +109,8 @@ void setup(){
   /* set font type and size */
 
   f = createFont("Arial", 16, true);
-  haplyBoard          = new Board(this, "/dev/cu.usbmodem2101", 0);
-  //haplyBoard          = new Board(this, Serial.list()[0], 0);
+  //haplyBoard          = new Board(this, "/dev/cu.usbmodem2101", 0);
+  haplyBoard          = new Board(this, Serial.list()[0], 0);
 
   widgetOne           = new Device(widgetOneID, haplyBoard);
   pantograph          = new Pantograph();
