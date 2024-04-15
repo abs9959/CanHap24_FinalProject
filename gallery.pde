@@ -200,7 +200,7 @@ void draw(){
       text("First mode", 500, 300);
       text("*Haptic Experience Window*", 100, 75);
       fill(#000000);
-      text("Instructions:\nEach of the 3 experiences below represents a texture. \nThe textures are as follows:\n1. Instructions \n2. The Flower \n3. Abstract Blue N.01 \n4. third painting name \nMake sure the mouse is focussed on the Haptic Experience Window. \nPress '1' for the first experience. \nPress '2' for the second experience and so on... ", 100, 100);
+      text("Instructions:\nEach of the 3 experiences below represents a texture. \nThe textures are as follows:\n1. Instructions \n2. The Flower \n3. Abstract Blue N.01 \n4. Spring Green \nMake sure the mouse is focussed on the Haptic Experience Window. \nPress '1' for the first experience. \nPress '2' for the second experience and so on... ", 100, 100);
       fill(#000000);
       text("Current mode:", 300, 300);
       fill(#000000);
@@ -210,7 +210,7 @@ void draw(){
       text("ABSTRACT BLUE N.01", 800, 175);
     } else if(ffNum == FFNUM.FOUR) {
       fill(0);
-      text(" ", 500, 300);
+      text("SPRING GREEN", 680, 150);
     }
     
     if (ffNum == FFNUM.TWO) {
@@ -251,6 +251,7 @@ void draw(){
      float scaledWidth = painting3.width * scaleFactor;
      float scaledHeight = painting3.height * scaleFactor;
      
+     imageMode(CORNER);
      image(painting3, width / 2 - 265, map(0.02, 0, 0.1, 0, 700), scaledWidth, scaledHeight);
 
      shape(bezierCurve);
@@ -260,7 +261,7 @@ void draw(){
      bezierCurve2.setVisible(false);
    
      fill(#000000);
-     text("Current mode: Seventh mode", 10,30);
+     //text("Current mode: Seventh mode", 10,30);
      ellipse(mapX(posEE.x), mapY(posEE.y), 10, 10);
     
     }
